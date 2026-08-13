@@ -1,20 +1,19 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#050817"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest_v31.json"><title>SKY RUSH V3.3</title>
+<meta name="theme-color" content="#050817"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.json"><title>SKY RUSH V3.3</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02040d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{display:flex;align-items:center;justify-content:center}#gameWrap{position:relative;width:min(100vw,430px);height:100dvh;max-height:900px;overflow:hidden;background:#040718}canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
 #hud{position:absolute;z-index:10;top:calc(env(safe-area-inset-top) + 8px);left:8px;right:8px;pointer-events:none}.row{display:flex;gap:6px;align-items:center}.box{background:rgba(3,9,25,.72);border:1px solid rgba(140,205,255,.25);box-shadow:0 5px 18px #0006,inset 0 1px #fff1;border-radius:12px;padding:6px 8px;backdrop-filter:blur(6px)}.box small{display:block;color:#8fa1bc;font-size:7px;letter-spacing:1.2px}.box b{font-size:13px}#timer{flex:1;text-align:center;font-weight:900;font-size:23px;letter-spacing:2px;text-shadow:0 0 14px #55d9ff}#pauseBtn{pointer-events:auto;width:40px;height:40px;border-radius:12px;background:#0a1834cc;color:#fff;border:1px solid #8bdcff55;font-size:19px;font-weight:900}#pauseBtn:active{transform:scale(.94)}#milestone{position:absolute;top:20%;left:7%;right:7%;text-align:center;opacity:0;transform:scale(.7);transition:.18s;pointer-events:none}#milestone.show{opacity:1;transform:scale(1)}#milestone .big{font-size:34px;font-weight:1000;color:#ffe16b;text-shadow:0 3px 0 #8a3d00,0 0 22px #ffb52e}#milestone .sub{display:inline-block;margin-top:5px;padding:5px 12px;border-radius:999px;background:#071022dd;border:1px solid #ffd35b88;font-weight:900}
 #pauseOverlay,#startScreen,#gameOver{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(2,5,15,.86);backdrop-filter:blur(8px)}#pauseOverlay,#gameOver{display:none}h1{margin:0;font-size:45px;letter-spacing:4px;text-shadow:0 0 24px #51d9ff66}.subhead{color:#9eb0c8;font-size:11px;letter-spacing:2px;margin-top:8px}.btn{margin-top:22px;width:76%;height:56px;border:0;border-radius:16px;background:linear-gradient(#f6fdff,#aeeaff);color:#04111e;font-size:18px;font-weight:1000;letter-spacing:2px;box-shadow:0 10px 35px #38cfff33}.card{width:82%;margin-top:18px;padding:12px;border-radius:16px;background:#071327aa;border:1px solid #80cfff22}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.stats b{display:block;font-size:16px}.stats span{font-size:8px;color:#8191a8;letter-spacing:1px}#gameOver .final{margin:15px 0;color:#aeb8c7;line-height:2}#gameOver strong{font-size:26px;color:#fff}#startScreen .tip{margin-top:13px;font-size:10px;color:#73839a}
 #weapon{position:absolute;z-index:12;right:12px;bottom:calc(env(safe-area-inset-bottom) + 18px);width:58px;height:58px;border-radius:50%;background:#06112dcc;border:1px solid #65ddff55;box-shadow:0 0 22px #ff3b5b22;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:25px}#weapon.laser{box-shadow:0 0 25px #ff405e88}#laserText{position:absolute;right:10px;bottom:calc(env(safe-area-inset-bottom) + 79px);font-size:9px;font-weight:900;color:#ff7890;opacity:0;pointer-events:none}#laserText.show{opacity:1}
 #legend{position:absolute;z-index:11;left:8px;bottom:calc(env(safe-area-inset-bottom) + 8px);display:flex;gap:4px;pointer-events:none}.pill{font-size:8px;background:#061126cc;border:1px solid #ffffff14;border-radius:10px;padding:4px 6px;color:#dce7f7}.pill b{color:#ffe36b}
-</style><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none}</style>
-</head><body><div id="gameWrap"><canvas id="gameCanvas"></canvas>
+</style></head><body><div id="gameWrap"><canvas id="gameCanvas"></canvas>
 <div id="hud"><div class="row"><button id="pauseBtn">Ⅱ</button><div class="box"><small>TIME</small><b id="timeText">30.0</b></div><div class="box"><small>COINS</small><b id="coinText">0</b></div><div class="box"><small>♥</small><b id="hpText">3</b></div><div class="box"><small>LV</small><b id="levelText">1</b></div></div></div>
 <div id="milestone"><div class="big">Awesome MJ!!</div><div class="sub" id="milestoneSub">20 COINS</div></div>
 <div id="weapon">🔫</div><div id="laserText">BICHON LASER!</div>
 <div id="legend"><div class="pill">💩 <b>황금</b></div><div class="pill">🐶 <b>비숑</b></div><div class="pill">😎 <b>MJ 적기</b></div></div>
-<div id="startScreen"><h1>SKY RUSH</h1><div class="subhead">V3.3 • 30 SECOND RUSH</div><div class="card"><div class="stats"><div><b id="bestMenu">0</b><span>BEST</span></div><div><b>30s</b><span>ROUND</span></div><div><b>∞</b><span>RUSH</span></div></div></div><button id="startButton" onclick="window.__skyRushStarted=true;" class="btn">START RUSH</button><div class="tip">화면을 드래그해서 비행기를 자유롭게 움직이세요</div></div>
+<div id="startScreen"><h1>SKY RUSH</h1><div class="subhead">V3.3 • 30 SECOND RUSH</div><div class="card"><div class="stats"><div><b id="bestMenu">0</b><span>BEST</span></div><div><b>30s</b><span>ROUND</span></div><div><b>∞</b><span>RUSH</span></div></div></div><button id="startButton" class="btn">START RUSH</button><div class="tip">화면을 드래그해서 비행기를 자유롭게 움직이세요</div></div>
 <div id="pauseOverlay"><h1>PAUSED</h1><div class="subhead">잠시 쉬어가세요</div><button id="resumeButton" class="btn">RESUME</button></div>
 <div id="gameOver"><h1>TIME UP!</h1><div id="finalText" class="final"></div><button id="retryButton" class="btn">RUSH AGAIN</button></div>
 </div>
@@ -64,19 +63,4 @@ function loop(now){if(!running||paused)return;const dt=Math.min(.035,(now-last)/
  const ms=[5,10,20,30,40,50];for(const m of ms)if(coins>=m)showMilestone(m);updateHud();ctx.save();if(shake>0)ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);
  for(const s of shots){ctx.shadowBlur=10;ctx.shadowColor=laser>0?'#ff3558':'#ffe36b';ctx.fillStyle=laser>0?'#ffecf1':'#fff2a1';ctx.fillRect(s.x-2,s.y-12,4,14)}for(const s of enemyShots){ctx.shadowBlur=10;ctx.shadowColor='#ff4e75';ctx.fillStyle='#ff5d83';heart(s.x,s.y,5,'#ff5d83')}ctx.shadowBlur=0;for(const o of objects)drawObj(o);for(const p of particles){ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle='#ffd35d';ctx.fillRect(p.x,p.y,p.size,p.size)}ctx.globalAlpha=1;drawPlayer();ctx.restore();if(flash>0){ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(0,0,W,H)}raf=requestAnimationFrame(loop)}
 })();
-</script>
-<script>
-window.addEventListener('error', function(e) {
-  const el = document.getElementById('startScreen');
-  if (el && !window.__skyRushRuntimeErrorShown) {
-    window.__skyRushRuntimeErrorShown = true;
-    el.style.display = 'flex';
-    const p = document.createElement('div');
-    p.style.cssText = 'margin-top:12px;color:#ffb4b4;font-size:12px;max-width:280px;text-align:center';
-    p.textContent = 'Game startup error. Reload the page.';
-    el.appendChild(p);
-  }
-});
-</script>
-
-</body></html>
+</script></body></html>

@@ -1,9 +1,9 @@
 {
-  "name":"SKY RUSH V3.3",
-  "short_name":"SKY RUSH",
-  "start_url":"./index.html",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#020713",
-  "theme_color":"#020713"
+  "name": "SKY RUSH V3.3",
+  "short_name": "SKY RUSH",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#02040d",
+  "theme_color": "#050817"
 }
