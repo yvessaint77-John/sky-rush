@@ -9,13 +9,13 @@
 #weapon{position:absolute;z-index:12;right:12px;bottom:calc(env(safe-area-inset-bottom) + 18px);width:58px;height:58px;border-radius:50%;background:#06112dcc;border:1px solid #65ddff55;box-shadow:0 0 22px #ff3b5b22;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:25px}#weapon.laser{box-shadow:0 0 25px #ff405e88}#laserText{position:absolute;right:10px;bottom:calc(env(safe-area-inset-bottom) + 79px);font-size:9px;font-weight:900;color:#ff7890;opacity:0;pointer-events:none}#laserText.show{opacity:1}
 #legend{position:absolute;z-index:11;left:8px;bottom:calc(env(safe-area-inset-bottom) + 8px);display:flex;gap:4px;pointer-events:none}.pill{font-size:8px;background:#061126cc;border:1px solid #ffffff14;border-radius:10px;padding:4px 6px;color:#dce7f7}.pill b{color:#ffe36b}
 </style></head><body><div id="gameWrap"><canvas id="gameCanvas"></canvas>
-<div id="hud"><div class="row"><button id="pauseBtn">Ⅱ</button><div class="box"><small>TIME</small><b id="timeText">30.0</b></div><div class="box"><small>COINS</small><b id="coinText">0</b></div><div class="box"><small>♥</small><b id="hpText">3</b></div><div class="box"><small>LV</small><b id="levelText">1</b></div></div></div>
+<div id="hud"><div class="row"><button type="button" id="pauseBtn">Ⅱ</button><div class="box"><small>TIME</small><b id="timeText">30.0</b></div><div class="box"><small>COINS</small><b id="coinText">0</b></div><div class="box"><small>♥</small><b id="hpText">3</b></div><div class="box"><small>LV</small><b id="levelText">1</b></div></div></div>
 <div id="milestone"><div class="big">Awesome MJ!!</div><div class="sub" id="milestoneSub">20 COINS</div></div>
 <div id="weapon">🔫</div><div id="laserText">BICHON LASER!</div>
 <div id="legend"><div class="pill">💩 <b>황금</b></div><div class="pill">🐶 <b>비숑</b></div><div class="pill">😎 <b>MJ 적기</b></div></div>
-<div id="startScreen"><h1>SKY RUSH</h1><div class="subhead">V3.3 • 30 SECOND RUSH</div><div class="card"><div class="stats"><div><b id="bestMenu">0</b><span>BEST</span></div><div><b>30s</b><span>ROUND</span></div><div><b>∞</b><span>RUSH</span></div></div></div><button id="startButton" class="btn">START RUSH</button><div class="tip">화면을 드래그해서 비행기를 자유롭게 움직이세요</div></div>
-<div id="pauseOverlay"><h1>PAUSED</h1><div class="subhead">잠시 쉬어가세요</div><button id="resumeButton" class="btn">RESUME</button></div>
-<div id="gameOver"><h1>TIME UP!</h1><div id="finalText" class="final"></div><button id="retryButton" class="btn">RUSH AGAIN</button></div>
+<div id="startScreen"><h1>SKY RUSH</h1><div class="subhead">V3.3 • 30 SECOND RUSH</div><div class="card"><div class="stats"><div><b id="bestMenu">0</b><span>BEST</span></div><div><b>30s</b><span>ROUND</span></div><div><b>∞</b><span>RUSH</span></div></div></div><button type="button" id="startButton" class="btn">START RUSH</button><div class="tip">화면을 드래그해서 비행기를 자유롭게 움직이세요</div></div>
+<div id="pauseOverlay"><h1>PAUSED</h1><div class="subhead">잠시 쉬어가세요</div><button type="button" id="resumeButton" class="btn">RESUME</button></div>
+<div id="gameOver"><h1>TIME UP!</h1><div id="finalText" class="final"></div><button type="button" id="retryButton" class="btn">RUSH AGAIN</button></div>
 </div>
 <script>
 (()=>{'use strict';
@@ -63,4 +63,21 @@ function loop(now){if(!running||paused)return;const dt=Math.min(.035,(now-last)/
  const ms=[5,10,20,30,40,50];for(const m of ms)if(coins>=m)showMilestone(m);updateHud();ctx.save();if(shake>0)ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);
  for(const s of shots){ctx.shadowBlur=10;ctx.shadowColor=laser>0?'#ff3558':'#ffe36b';ctx.fillStyle=laser>0?'#ffecf1':'#fff2a1';ctx.fillRect(s.x-2,s.y-12,4,14)}for(const s of enemyShots){ctx.shadowBlur=10;ctx.shadowColor='#ff4e75';ctx.fillStyle='#ff5d83';heart(s.x,s.y,5,'#ff5d83')}ctx.shadowBlur=0;for(const o of objects)drawObj(o);for(const p of particles){ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle='#ffd35d';ctx.fillRect(p.x,p.y,p.size,p.size)}ctx.globalAlpha=1;drawPlayer();ctx.restore();if(flash>0){ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(0,0,W,H)}raf=requestAnimationFrame(loop)}
 })();
-</script></body></html>
+</script>
+<script>
+window.addEventListener('error', function(ev){
+  console.error('SKY RUSH runtime error:', ev.error || ev.message);
+  const s=document.getElementById('startScreen');
+  if(s && document.getElementById('skyRushErr')===null){
+    const d=document.createElement('div');
+    d.id='skyRushErr';
+    d.style.cssText='margin-top:10px;color:#ff9a9a;font-size:11px;max-width:300px';
+    d.textContent='START 오류: '+(ev.message||'runtime error');
+    s.appendChild(d);
+  }
+});
+window.addEventListener('unhandledrejection', function(ev){
+  console.error('SKY RUSH promise error:', ev.reason);
+});
+</script>
+</body></html>
